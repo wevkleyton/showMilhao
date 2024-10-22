@@ -7,7 +7,7 @@ import br.com.showmilhao.model.Pergunta;
 public class InsertDataForTesting {
 
 	private static JogadorDAO jogadorDAO = new JogadorDAO();
-	private static PeruntaDAO peruntaDAO = new PeruntaDAO();
+	private static PeruntaDAO perguntaDAO = new PeruntaDAO();
 	
 	public static void main(String[] args) {
 //		Jogador jogador = new Jogador("Pedro", 200);
@@ -26,13 +26,16 @@ public class InsertDataForTesting {
 //		jogadorDAO.zerarranking();
 		
 		Pergunta pergunta = new Pergunta();
-		pergunta.setNivel("facil");
-		pergunta.setEnunciado("Qual é a cor do cavalo branco de Napoleão?");
-		pergunta.setAlternativa1("Preto");
-		pergunta.setAlternativa2("vermelho");
-		pergunta.setAlternativa3("Amarelo");
-		pergunta.setResposta("Branco");
-		peruntaDAO.adicionar(pergunta);
+//		pergunta.setNivel("Dificil");
+//		pergunta.setEnunciado("Quem descobriu o Brasil?");
+//		pergunta.setAlternativa1("Xuxa");
+//		pergunta.setAlternativa2("Tadeu");
+//		pergunta.setAlternativa3("Ana");
+//		pergunta.setResposta("Pedro A. C.");
+//		pergunta.setId(1);
+//		peruntaDAO.atualizar(pergunta);
+		perguntaDAO.remover(1);
+		
 		
 	
 

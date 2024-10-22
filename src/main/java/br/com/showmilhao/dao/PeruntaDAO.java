@@ -1,5 +1,6 @@
 package br.com.showmilhao.dao;
 
+import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -15,6 +16,8 @@ public class PeruntaDAO {
 	private Connection connection;
 	
 	private static final String QUERY_INSERT_PERGUNTA =  "INSERT INTO perguntas(id, nivel, enunciado, alternativa1, alternativa2, alternativa3, resposta) VALUES ($nest_id, ?, ?, ?, ?, ?, ?)";
+	private static final String QUERY_UPDATE_PERGUNTA =  "UPDATE perguntas SET nivel = ?, enunciado = ?, alternativa1= ?, alternativa2 = ?, alternativa3 =?, resposta =? WHERE id = ?" ;
+	private static final String QUERY_DELETE = "DELETE FROM perguntas WHERE id = ?";
 	private static final String OK = "Processo cocluido!";
 	private static final int MESSAGE_TYPE = JOptionPane.INFORMATION_MESSAGE;
 	
@@ -40,6 +43,39 @@ public class PeruntaDAO {
 		}
 	}
 	
+	public void atualizar(Pergunta pergunta) {
+		try {
+			try (PreparedStatement stmt = connection.prepareStatement(QUERY_UPDATE_PERGUNTA)){
+				stmt.setString(1, pergunta.getNivel());
+				stmt.setString(2, pergunta.getEnunciado());
+				stmt.setString(3, pergunta.getAlternativa1());
+				stmt.setString(4, pergunta.getAlternativa2());
+				stmt.setString(5, pergunta.getAlternativa3());
+				stmt.setString(6, pergunta.getResposta());
+				stmt.setInt(7, pergunta.getId());
+				stmt.executeUpdate();
+				connection.commit();
+			}
+			JOptionPane.showMessageDialog(new Frame(), "Pergunta Alterada com Sucesso!", OK, MESSAGE_TYPE);
+		} catch (Exception e) {
+			LogUtil.getLogger(PeruntaDAO.class).error(e.getCause().toString());
+		}
+		
+	}
+	
+	public void remover (Integer idPergunta) {
+		try {
+			try(PreparedStatement stmt = connection.prepareStatement(QUERY_DELETE)){
+				stmt.setInt(1, idPergunta);
+				stmt.execute();
+				connection.commit();
+			}
+			JOptionPane.showMessageDialog(new Frame(), "Pergunta Removida com Sucesso!", OK, MESSAGE_TYPE);
+
+		} catch (Exception e) {
+			LogUtil.getLogger(PeruntaDAO.class).error(e.getCause().toString());
+		}
+	}
 
 	
 }
